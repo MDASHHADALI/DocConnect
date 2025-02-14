@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:health_app/user_controller.dart';
 import 'package:iconsax/iconsax.dart';
@@ -8,7 +6,6 @@ import 'package:health_app/TSectionHeading.dart';
 
 import '../../../circular_image.dart';
 import '../../../utils/constants/colors.dart';
-import '../../../utils/constants/image_strings.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 import '../profilewidgets/profile_menu.dart';
@@ -21,11 +18,11 @@ class ProfileScreen extends StatelessWidget {
     final darkMode = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profile'),
+        title: const Text('Profile'),
         leading: IconButton(icon:Icon(Icons.navigate_before,color: darkMode?TColors.white:TColors.black ),onPressed: ()=>Get.back(),),
       ),
       body: SingleChildScrollView(
-        child: Padding(padding: EdgeInsets.all(TSizes.defaultSpace),
+        child: Padding(padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Column(
           children: [
             SizedBox(
