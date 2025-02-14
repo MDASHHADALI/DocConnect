@@ -6,7 +6,6 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:health_app/user_controller.dart';
 import 'package:health_app/utils/constants/colors.dart';
 import 'package:health_app/utils/helpers/helper_functions.dart';
-import 'package:iconsax/iconsax.dart';
 
 
 
@@ -40,6 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     _messages.add({'bot': 'Hi ${controller.user.value.fullName}, How can I help you ?'});
 
