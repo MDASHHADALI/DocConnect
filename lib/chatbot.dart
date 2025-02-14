@@ -4,6 +4,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:health_app/user_controller.dart';
+import 'package:health_app/utils/constants/colors.dart';
+import 'package:health_app/utils/helpers/helper_functions.dart';
 import 'package:iconsax/iconsax.dart';
 
 
@@ -73,18 +75,20 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final darkMode = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
 
         title: Text('Doc Assistant', style: GoogleFonts.poppins(fontSize: 20)),
-        backgroundColor: Colors.white,
+        backgroundColor: darkMode?TColors.black:Colors.white,
+        leading: IconButton(icon:Icon(Icons.navigate_before,color: darkMode?Colors.white:Colors.black ),onPressed: ()=>Get.back(),),
       ),
       body: Column(
         children: [
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
-              color: Colors.white,
+              color: darkMode?TColors.black:Colors.white,
               child: ListView.builder(
 
                 controller: _sc,
@@ -118,7 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         hintStyle: GoogleFonts.roboto(),
                         border: InputBorder.none,
                       ),
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(color: Colors.black,fontSize: 16),
                     ),
                   ),
                   IconButton(
