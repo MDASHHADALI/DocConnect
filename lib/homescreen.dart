@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: ()=>{Get.to(ChatScreen())},
         tooltip: 'Doc Assistant',
         backgroundColor: Colors.blue.shade100,
-        child: const Icon(Iconsax.message_search4),
+        child: const Icon(Iconsax.message_search4,color: Colors.black,),
       ),
       body: SingleChildScrollView(
         child: Column(
