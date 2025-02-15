@@ -23,12 +23,12 @@ class OnBoardingScreen extends StatelessWidget {
             onPageChanged: controller.updatePageIndicator,
             children: const [
               OnBoardingPage(
-                image: "assets/img/op1.jpg",
+                image: "assets/img/op1n.png",
                 title: "Welcome to DocConnect",
                 subTitle: "Your partner in health and always to your side",
               ),
-              OnBoardingPage(image: "assets/img/op2.jpg", title: "Your Doctor is Just a Video Call Away.", subTitle: "Stay Connected to Care, Wherever You Are."),
-              OnBoardingPage(image: "assets/img/op3.jpg", title: "Your Health Essentials, Always in Stock", subTitle: "Just Get Started"),
+              OnBoardingPage(image: "assets/img/op2n.png", title: "Your Doctor is Just a Video Call Away.", subTitle: "Stay Connected to Care, Wherever You Are."),
+              OnBoardingPage(image: "assets/img/op3n.png", title: "Your Health Essentials, Always in Stock", subTitle: "Just Get Started"),
             ],
           ),
           const OnBoardingSkipButton(),

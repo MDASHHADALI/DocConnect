@@ -17,11 +17,9 @@ class LoginHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image(
+        const Image(
             height: 150,
-            image: AssetImage((dark)
-                ? "assets/img/lp.jpg"
-                : "assets/img/lp.jpg")),
+            image: AssetImage("assets/img/lpn.png")),
         Text(
           TTexts.loginTitle,
           style: Theme.of(context).textTheme.headlineMedium,

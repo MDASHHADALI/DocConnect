@@ -111,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                     height: TSizes.spaceBtwSections,
                   ),
                   TSectionHeading(
-                    title: "Book an In-Clinic Consultation Appointment",
+                    title: "Book an In-Clinic Appointment",
                     showActionButton: false,
                   ),
                   SizedBox(
