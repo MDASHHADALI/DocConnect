@@ -71,9 +71,9 @@ class TValidator {
     }
 
     // Regular expression for phone number validation (assuming a 10-digit US phone number format)
-    final phoneRegExp = RegExp(r'^\d{2}$');
+    final pRegExp =  RegExp(r'^\d{1,2}$');
 
-    if (!phoneRegExp.hasMatch(value)) {
+    if (!pRegExp.hasMatch(value)) {
       return 'Invalid year of experience .';
     }
 
