@@ -4,48 +4,45 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:health_app/TSectionHeading.dart';
 import 'package:health_app/appbar.dart';
 import 'package:health_app/circular_image.dart';
-import 'package:health_app/common/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:health_app/common/widgets/custom_shapes/containers/primary_header_container.dart';
-import 'package:health_app/common/widgets/screens/profile.dart';
-import 'package:health_app/navigation_menu.dart';
+import 'package:health_app/doctor/doctor_profile/doc_profile.dart';
 import 'package:health_app/shimmer.dart';
 import 'package:health_app/signoutfn.dart';
 import 'package:health_app/tsetting_menu_tile.dart';
-import 'package:health_app/user_controller.dart';
 import 'package:health_app/utils/constants/colors.dart';
-import 'package:health_app/utils/constants/image_strings.dart';
 import 'package:health_app/utils/constants/sizes.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SettingScreen extends StatelessWidget {
-  const SettingScreen({super.key});
+import 'Doc_User_Controller.dart';
+
+class DocSettingScreen extends StatelessWidget {
+  const DocSettingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = UserController.instance;
-    final navController= NavigationController.instance;
+    final controller = DocUserController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             TPrimaryHeaderContainer(
                 child: Column(
-              children: [
-                TAppBar(
-                  title: Text(
-                    "Account",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineMedium!
-                        .apply(color: TColors.white),
-                  ),
-                ),
-                TUserProfileTile(controller: controller),
-                const SizedBox(
-                  height: TSizes.spaceBtwSections,
-                ),
-              ],
-            )),
+                  children: [
+                    TAppBar(
+                      title: Text(
+                        "Account",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineMedium!
+                            .apply(color: TColors.white),
+                      ),
+                    ),
+                    TUserProfileTile(controller: controller),
+                    const SizedBox(
+                      height: TSizes.spaceBtwSections,
+                    ),
+                  ],
+                )),
 
             ///Body
             Padding(
@@ -57,7 +54,7 @@ class SettingScreen extends StatelessWidget {
                     height: TSizes.spaceBtwItems,
                   ),
                   TSettingMenuTile(icon: Iconsax.safe_home, title: 'My Address', subtitle: 'Set your Delivery Address',onTap: (){},),
-                  TSettingMenuTile(icon: Iconsax.calendar, title: 'Upcoming and Past Appointments', subtitle: 'View details of your appointments',onTap: (){navController.selectedIndex.value=2;},),
+                  TSettingMenuTile(icon: Iconsax.calendar, title: 'Upcoming and Past Appointments', subtitle: 'View details of your appointments',onTap: (){},),
                   TSettingMenuTile(icon: Iconsax.book, title: 'Medical Conditions & Allergies', subtitle: 'Comprehensive overview of  diagnosed health conditions and known allergies.',onTap: (){},),
                   TSettingMenuTile(icon: Iconsax.omega_circle, title: 'Ongoing Medications ', subtitle: 'Track your current medications, dosage schedules, and prescription details.',onTap: (){},),
                   TSettingMenuTile(icon: Iconsax.screenmirroring4, title: 'Vaccination History', subtitle: 'Track your immunization records,',onTap: (){},),
@@ -83,7 +80,7 @@ class TUserProfileTile extends StatelessWidget {
     required this.controller,
   });
 
-  final UserController controller;
+  final DocUserController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -92,9 +89,9 @@ class TUserProfileTile extends StatelessWidget {
         radius: 40,
         backgroundImage: AssetImage("assets/user/as.jpg"),
       ),*/
-       Obx((){
+      Obx((){
         final networkImage= controller.user.value.profilePicture;
-        final image= networkImage.isNotEmpty? networkImage:"assets/user/as.png";
+        final image= networkImage.isNotEmpty? networkImage:"assets/user/1024.png";
         return
           controller.imageUploading.value?
           const TShimmerEffect(width: 80, height: 80,radius: 80,):
@@ -102,21 +99,21 @@ class TUserProfileTile extends StatelessWidget {
       }
       ),
       title: Obx(()
-        => Text(
-          controller.user.value.fullName,
-          style: Theme.of(context)
-              .textTheme
-              .headlineSmall!
-              .apply(color: TColors.white),
-        ),
+      => Text(
+        controller.user.value.fullName,
+        style: Theme.of(context)
+            .textTheme
+            .headlineSmall!
+            .apply(color: TColors.white),
+      ),
       ),
       subtitle: Text(
         controller.user.value.email,
         style:
-            Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
+        Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),
       ),
       trailing: IconButton(
-          onPressed: () => Get.to(()=>const ProfileScreen()),
+          onPressed: () => Get.to(()=>const DoctorProfile()),
           icon: const Icon(
             Iconsax.edit,
             color: TColors.white,

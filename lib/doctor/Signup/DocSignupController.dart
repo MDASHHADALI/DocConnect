@@ -23,6 +23,7 @@ class DocSignupController extends GetxController {
   final phoneNumber=TextEditingController();
   final licenseNumber=TextEditingController();
   final location=TextEditingController();
+  final degree=TextEditingController();
   late String specialization;
   final year=TextEditingController();
   GlobalKey<FormState> signupFormKey= GlobalKey<FormState>();
@@ -62,10 +63,11 @@ class DocSignupController extends GetxController {
           specialization: specialization.trim(),
           location: location.text.trim(),
           yearOfExp: year.text.trim(),
-          profilePicture: ''
+          profilePicture: '',
+          degree: degree.text.trim(),
       );
-      final docuserRepository = Get.put(DocUserRepository());
-      await docuserRepository.saveUserRecord(newUser);
+      final docUserRepository = Get.put(DocUserRepository());
+      await docUserRepository.saveUserRecord(newUser);
       TFullScreenLoader.stopLoading();
       TLoaders.successSnackBar(title: 'Congratulations',message: 'Your account has been created! Verify email to continue.');
       Get.to(()=>  VerifyEmail(email: email.text.trim(),));

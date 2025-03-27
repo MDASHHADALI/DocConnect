@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +17,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
   final ScrollController _sc=ScrollController();
+  late final  chat;
   final List<Map<String, String>> _messages = [];
   final controller = Get.put(UserController());
   Future<void> talkWithGemini (String message)
@@ -27,10 +28,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
     });
 
-    final model= GenerativeModel(model: 'gemini-1.5-flash-latest', apiKey: tSecretAPIKey
-    );
-    final content = [Content.text(message)];
-    final response = await model.generateContent(content);
+
+
+    final content = Content.text(message);
+
+    final response = await chat.sendMessage(content);
+    print(response.text);
     setState(() {
       _sc.jumpTo(_sc.position.maxScrollExtent+50);
       _messages.add({'bot': response.text!+""});
@@ -43,6 +46,20 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     // TODO: implement initState
     _messages.add({'bot': 'Hi ${controller.user.value.fullName}, How can I help you ?'});
+    final model = GenerativeModel(
+      model: 'gemini-2.0-flash-lite',
+      apiKey: tSecretAPIKey,
+      generationConfig: GenerationConfig(
+        temperature: 1,
+        topK: 40,
+        topP: 0.95,
+        maxOutputTokens: 8192,
+        responseMimeType: 'text/plain',
+      ),
+    );
+
+     chat = model.startChat(history: [
+    ]);
 
   }
 
@@ -88,7 +105,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               color: darkMode?TColors.black:Colors.white,
               child: ListView.builder(
 
@@ -106,11 +123,11 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(bottom:8.0,right: 12.0,left: 12.0,top: 4.0),
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+             // padding: const EdgeInsets.only(right: 8.0, left: 8.0,bottom: 5.0),
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0),
-                color: Colors.grey[200],
+                color: darkMode?TColors.black:TColors.white,
               ),
 
               child: Row(
@@ -122,19 +139,19 @@ class _ChatScreenState extends State<ChatScreen> {
                         hintText: 'Type your message...',
                         hintStyle: GoogleFonts.roboto(),
                         border: InputBorder.none,
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.send, color: Colors.blueAccent),
+                          onPressed: () {
+                            if (_controller.text.isNotEmpty) {
+                              talkWithGemini(_controller.text);
+                              _controller.clear();
+                            }
+                          },
+                        ),
                       ),
-                      style: const TextStyle(color: Colors.black,fontSize: 16),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.send, color: Colors.blueAccent),
-                    onPressed: () {
-                      if (_controller.text.isNotEmpty) {
-                        talkWithGemini(_controller.text);
-                        _controller.clear();
-                      }
-                    },
-                  ),
+
                 ],
               ),
             ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:health_app/Appointments%20&%20Consultations/specialist.dart';
 import 'package:health_app/TVercelImageText3.dart';
 import 'package:health_app/appbar.dart';
 import 'package:health_app/chatbot.dart';
@@ -17,6 +16,7 @@ import 'package:health_app/utils/popup/full_screen_loader.dart';
 import 'package:health_app/utils/popup/loaders.dart';
 import 'package:iconsax/iconsax.dart';
 
+import 'AppointmentsAndConsultations/specialist.dart';
 import 'TSectionHeading.dart';
 import 'TVerticalImageText.dart';
 import 'TverticalImageText2A.dart';

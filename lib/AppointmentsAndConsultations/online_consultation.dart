@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../utils/constants/sizes.dart';
 import '../utils/constants/text_strings.dart';
 import '../utils/helpers/helper_functions.dart';
+import 'consultation_form.dart';
 
 class OnlineConsultation extends StatelessWidget {
   const OnlineConsultation({super.key});
@@ -15,7 +16,7 @@ class OnlineConsultation extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
         leading: IconButton(icon:Icon(Icons.navigate_before,color: darkMode?Colors.white:Colors.black),onPressed: ()=>Get.back(),),
-    title:Text( "Online Consultation", style: Theme.of(context).textTheme.labelMedium),
+    //title:Text( "Online Consultation", style: Theme.of(context).textTheme.headlineSmall),
     ),
     body: SingleChildScrollView(
     child: Padding(
@@ -24,22 +25,22 @@ class OnlineConsultation extends StatelessWidget {
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
     Text(
-    "Enter the patient Details",
+    "Enter the Patient Details",
     style: Theme.of(context).textTheme.headlineMedium,
     ),
     const SizedBox(
     height: TSizes.spaceBtwSections,
     ),
-    const ConsultationForm(),
+    ConsultationForm(),
     const SizedBox(height: TSizes.spaceBtwSections,),
-    FormDivider(formDividerText: TTexts.orSignUpWith.capitalize!),
-    const SizedBox(height: TSizes.spaceBtwSections,),
-    const SocialButtons(),
+    //FormDivider(formDividerText: TTexts.orSignUpWith.capitalize!),
+   // const SizedBox(height: TSizes.spaceBtwSections,),
+   // const SocialButtons(),
 
     ],
-    ),,
+    ),
     )
-    ,
+    ),
     );
   }
 }

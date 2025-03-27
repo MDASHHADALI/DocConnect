@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -9,10 +10,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:health_app/common/widgets/signupwidgets/verifyemail.dart';
+import 'package:health_app/doctor/Signup/doc_navigation_page.dart';
+import 'package:health_app/doctor/Signup/doctor_homepage.dart';
 import 'package:health_app/login.dart';
-import 'package:health_app/myhomepage.dart';
 import 'package:health_app/navigation_menu.dart';
 import 'package:health_app/onboardingscreen.dart';
+import 'package:health_app/services/notification_service.dart';
 import 'package:health_app/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:health_app/utils/exceptions/firebase_exceptions.dart';
 import 'package:health_app/utils/exceptions/format_exceptions.dart';
@@ -42,13 +45,16 @@ class AuthenticationRepository extends GetxController
     if(user!=null)
       {
         if(user.emailVerified){
+          final fcmToken= await FirebaseMessaging.instance.getToken();
           final documentSnapsot=await FirebaseFirestore.instance.collection("Doctors").doc(AuthenticationRepository.instance.authUser?.uid).get();
           if(documentSnapsot.exists)
             {
+              await FirebaseFirestore.instance.collection('Doctors').doc(user.uid).update(({'FCMToken':fcmToken}));
               TFullScreenLoader.stopLoading();
-              Get.offAll(()=> const MyHomePage(title: "Home"));
+              Get.offAll(()=> const DocNavigationMenu());
             }
           else{
+            await FirebaseFirestore.instance.collection('Users').doc(user.uid).update({'FCMToken':fcmToken});
             TFullScreenLoader.stopLoading();
           Get.offAll(()=> const NavigationMenu( ));
 
@@ -73,13 +79,16 @@ class AuthenticationRepository extends GetxController
     if(user!=null)
     {
       if(user.emailVerified){
+        final fcmToken= await FirebaseMessaging.instance.getToken();
         final documentSnapsot=await FirebaseFirestore.instance.collection("Doctors").doc(AuthenticationRepository.instance.authUser?.uid).get();
         if(documentSnapsot.exists)
         {
+          await FirebaseFirestore.instance.collection('Doctors').doc(user.uid).update({'FCMToken':fcmToken});
           TFullScreenLoader.stopLoading();
-          Get.offAll(()=> const MyHomePage(title: "Home"));
+          Get.offAll(()=> const DocNavigationMenu());
         }
         else{
+          await FirebaseFirestore.instance.collection('Users').doc(user.uid).update({'FCMToken':fcmToken});
           TFullScreenLoader.stopLoading();
           Get.offAll(()=> const NavigationMenu( ));
         }

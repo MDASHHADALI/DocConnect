@@ -51,6 +51,9 @@ dependencies:
   firebase_auth: ^5.5.1
   cloud_firestore: ^5.6.5
   google_sign_in: ^6.2.1
+  firebase_messaging:
+  flutter_local_notifications: ^19.0.0
+  firebase_analytics:
   # Product Specific
   readmore: ^3.0.0
   carousel_slider: ^5.0.0
@@ -64,6 +67,8 @@ dependencies:
   cached_network_image: ^3.4.1
   shimmer:
   scrollable_positioned_list:
+  multi_dropdown:
+  image_cropper:
 
 
 

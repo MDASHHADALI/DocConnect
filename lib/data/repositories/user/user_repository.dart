@@ -101,7 +101,7 @@ class UserRepository extends GetxController
     }
   }
 
-  /// Function to remove user data from firestore.
+  /// Function to upload image to firebase.
   Future<String> uploadImage(String path, XFile image) async
   {
     try{

@@ -94,9 +94,22 @@ class DocSignUpForm extends StatelessWidget {
             ),
             TextFormField(
               validator: (value) =>
+                  TValidator.validateEmptyText('Degree', value),
+              controller: controller.degree,
+              expands: false,
+              decoration: const InputDecoration(
+                  labelText: 'Degree',
+                  prefixIcon: Icon(Iconsax.book)),
+            ),
+            const SizedBox(
+              height: TSizes.spaceBtwInputFields,
+            ),
+            TextFormField(
+              validator: (value) =>
                   TValidator.validateYearofExp(value),
               controller: controller.year,
               expands: false,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                   labelText: 'Year of Experience',
                   prefixIcon: Icon(Iconsax.calendar)),

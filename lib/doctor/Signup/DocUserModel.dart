@@ -11,6 +11,7 @@ class DocUserModel
   final String username;
   final String email;
   final String licenseNumber;
+  String degree;
   String location;
   String specialization;
   String yearOfExp;
@@ -23,6 +24,7 @@ class DocUserModel
     required this.lastName,
     required this.username,
     required this.email,
+    required this.degree,
     required this.phoneNumber,
     required this.profilePicture,
     required this.licenseNumber,
@@ -47,7 +49,7 @@ class DocUserModel
     return usernameWithPrefix;
   }
   /// Static function to create an empty user model.
-  static DocUserModel empty() => DocUserModel(id: '', firstName: '', lastName: '', username: '', email: '', phoneNumber: '', licenseNumber: '',specialization: '', location: '', yearOfExp: '', profilePicture: '');
+  static DocUserModel empty() => DocUserModel(id: '', firstName: '', lastName: '', username: '', email: '', phoneNumber: '', licenseNumber: '',specialization: '', location: '', yearOfExp: '', profilePicture: '', degree: '');
   /// Convert model to JSON structure for storing data in Firebase
   Map<String,dynamic> toJson()
   {
@@ -56,6 +58,7 @@ class DocUserModel
       'LastName': lastName,
       'Username': username,
       'Email': email,
+      'Degree': degree,
       'PhoneNumber': phoneNumber,
       'LicenseNumber': licenseNumber,
       'Specialization':specialization,
@@ -73,7 +76,7 @@ class DocUserModel
       return DocUserModel(id: document.id,
           firstName: data['FirstName']??'',
           lastName: data['LastName']??'',
-          username: data['UserName']??'',
+          username: data['Username']??'',
           email: data['Email']??'',
           phoneNumber: data['PhoneNumber']??'',
           licenseNumber: data['LicenseNumber']??'',
@@ -81,6 +84,7 @@ class DocUserModel
           location: data['LocationOfClinic']??'',
           yearOfExp: data['YearOfExperience']??'',
           profilePicture: data['ProfilePicture']??'',
+          degree: data['Degree']??'',
       );
     }
     else

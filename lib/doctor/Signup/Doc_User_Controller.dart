@@ -7,12 +7,15 @@ import 'package:health_app/usermodel.dart';
 import 'package:health_app/utils/popup/loaders.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-class UserController extends GetxController
+
+import 'DocUserModel.dart';
+import 'Doc_User_Repository.dart';
+class DocUserController extends GetxController
 {
-  static UserController get instance => Get.find();
-  Rx<UserModel> user = UserModel.empty().obs;
+  static DocUserController get instance => Get.find();
+  Rx<DocUserModel> user = DocUserModel.empty().obs;
   final imageUploading= false.obs;
-  final userRepository= Get.put(UserRepository());
+  final userRepository= Get.put(DocUserRepository());
 
 
   @override
@@ -26,9 +29,9 @@ class UserController extends GetxController
       final user=await userRepository.fetchUserDetails();
       this.user(user);
     }
-        catch(e)
+    catch(e)
     {
-      user(UserModel.empty());
+      user(DocUserModel.empty());
     }
   }
 
@@ -36,34 +39,39 @@ class UserController extends GetxController
   Future<void> saveUserRecord(UserCredential? userCredentials) async
   {
     try
-        {
-          //Refresh User Record
-          await fetchUserRecord();
-          if(user.value.id.isEmpty==false) {
-            return ;
-          }
-             if(userCredentials!=null)
-               {
-                 //Convert Name to First and Last Name
-                 final nameParts=UserModel.nameParts(userCredentials.user!.displayName??'');
-                 final username=UserModel.generateUsername(userCredentials.user!.displayName??'');
-                 //Map Data
-                 final user = UserModel(
-                     id: userCredentials.user!.uid,
-                     firstName: nameParts[0],
-                     lastName: nameParts.length>1?nameParts.sublist(1).join(' '):'',
-                     username: username,
-                     email: userCredentials.user!.email??'',
-                     phoneNumber: userCredentials.user!.phoneNumber ??'',
-                     profilePicture: userCredentials.user!.photoURL ??'',
-                 );
-                 await userRepository.saveUserRecord(user);
-               }
-        }
-        catch(e)
+    {
+      //Refresh User Record
+      await fetchUserRecord();
+      if(user.value.id.isEmpty==false) {
+        return ;
+      }
+      if(userCredentials!=null)
+      {
+        //Convert Name to First and Last Name
+        final nameParts=UserModel.nameParts(userCredentials.user!.displayName??'');
+        final username=UserModel.generateUsername(userCredentials.user!.displayName??'');
+        //Map Data
+        final user = DocUserModel(
+          id: userCredentials.user!.uid,
+          firstName: nameParts[0],
+          lastName: nameParts.length>1?nameParts.sublist(1).join(' '):'',
+          username: username,
+          email: userCredentials.user!.email??'',
+          phoneNumber: userCredentials.user!.phoneNumber ??'',
+          profilePicture: userCredentials.user!.photoURL ??'',
+          degree: '',
+          licenseNumber: '',
+          location: '',
+          specialization: '',
+          yearOfExp: '',
+        );
+        await userRepository.saveUserRecord(user);
+      }
+    }
+    catch(e)
     {
       TLoaders.warningSnackBar(title: 'Data not saved',
-      message: 'Something went wrong while saving your information. You can re-save your data in your Profile.');
+          message: 'Something went wrong while saving your information. You can re-save your data in your Profile.');
     }
   }
   uploadUserProfilePicture() async
@@ -96,18 +104,17 @@ class UserController extends GetxController
           ],
         );
         if (croppedFile != null) {
-          print("object");
-        imageUploading.value = true;
-        final imageUrl = await userRepository.uploadImage(
-            'Users/Images/', XFile(croppedFile.path));
-        //Update User Image Record
-        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
-        await userRepository.updateSingleField(json);
-        user.value.profilePicture = imageUrl;
-        user.refresh();
-        TLoaders.successSnackBar(title: 'Congratulations',
-            message: 'Your Profile Picture has been updated!');
-      }
+          imageUploading.value = true;
+          final imageUrl = await userRepository.uploadImage(
+              'Users/Images/', XFile(croppedFile.path));
+          //Update User Image Record
+          Map<String, dynamic> json = {'ProfilePicture': imageUrl};
+          await userRepository.updateSingleField(json);
+          user.value.profilePicture = imageUrl;
+          user.refresh();
+          TLoaders.successSnackBar(title: 'Congratulations',
+              message: 'Your Profile Picture has been updated!');
+        }
       }
     } catch(e)
     {

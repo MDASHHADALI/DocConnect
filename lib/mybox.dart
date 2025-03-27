@@ -1,6 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
 import 'package:health_app/utils/constants/colors.dart';
+
+import 'AppointmentsAndConsultations/online_consultation.dart';
 
 
 // ignore: must_be_immutable
@@ -14,7 +19,7 @@ class MyBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-
+        (index==0)? Get.to(()=>const OnlineConsultation()):();
       },
 
       child: Ink(
@@ -28,13 +33,12 @@ class MyBox extends StatelessWidget {
           children: [Expanded(flex: 4,child:
           Stack(
             children:[
-              Container(child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(i[index],),
-            ),
-                decoration: BoxDecoration(
+              Container(decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Colors.grey.shade200,
+            ),child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(i[index],),
             ),),
                Positioned(
                  bottom: 0,
@@ -42,11 +46,11 @@ class MyBox extends StatelessWidget {
                  left: 15,
                  child: Container(
                    width: 50,
-                   child: Center(child: Text(lbl[index],style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white),)),
                    decoration: BoxDecoration(
                      borderRadius: BorderRadius.circular(50),
                      color: TColors.primary,
                    ),
+                   child: Center(child: Text(lbl[index],style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white),)),
                  ),
                ),
             ],
