@@ -5,7 +5,7 @@ import 'package:health_app/bindings/general_bindings.dart';
 import 'package:health_app/utils/constants/colors.dart';
 import 'package:health_app/utils/theme/theme.dart';
 
-import 'myhomepage.dart';
+
 import 'onboardingscreen.dart';
 
 class MyApp extends StatelessWidget {

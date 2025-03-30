@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -5,6 +7,7 @@ import 'package:health_app/TVercelImageText3.dart';
 import 'package:health_app/appbar.dart';
 import 'package:health_app/chatbot.dart';
 import 'package:health_app/common/widgets/custom_shapes/curved_edges.dart';
+import 'package:health_app/google_map.dart';
 import 'package:health_app/user_controller.dart';
 import 'package:health_app/utils/constants/colors.dart';
 import 'package:health_app/utils/constants/enums.dart';
@@ -25,6 +28,7 @@ import 'common/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'common/widgets/custom_shapes/curved_edges_widget.dart';
 import 'data/repositories/authentication/authentication_repository.dart';
 import 'mybox.dart';
+import 'notification/notification.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -361,7 +365,9 @@ class HomeScreenAppbar extends StatelessWidget {
       actions: [
         Stack(children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+
+            },
             icon: const Icon(
               Iconsax.shopping_bag,
               color: TColors.white,
@@ -378,19 +384,23 @@ class HomeScreenAppbar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Center(
-                  child: Text(
-                    '2',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .apply(color: TColors.white, fontSizeFactor: 0.8),
-                  ),
+                  child:
+                        Text(
+                        '0',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge!
+                            .apply(color: TColors.white, fontSizeFactor: 0.8),
+                      ),
+
                 ),
               ))
         ]),
         Stack(children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(()=>const Notifications(pf: "User",));
+            },
             icon: const Icon(
               Iconsax.notification,
               color: TColors.white,
@@ -407,12 +417,28 @@ class HomeScreenAppbar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Center(
-                  child: Text(
-                    '4',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .apply(color: TColors.white, fontSizeFactor: 0.8),
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection("Notifications").where('PersonId',isEqualTo: AuthenticationRepository.instance.authUser!.uid).where('Seen',isEqualTo: 'No').snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('');
+                        }
+
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return  const Text("");
+                        }
+                        return (snapshot.data!.docs.isEmpty)?
+                        Text("0" ,style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white, fontSizeFactor: 0.8),
+                        )
+                            :
+                        Text(
+                          snapshot.data!.docs.length.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .apply(color: TColors.white, fontSizeFactor: 0.8),
+                        );
+                      }
                   ),
                 ),
               ))

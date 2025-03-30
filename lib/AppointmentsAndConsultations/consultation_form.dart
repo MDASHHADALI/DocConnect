@@ -22,7 +22,7 @@ class ConsultationForm extends StatelessWidget {
    ConsultationForm({super.key});
    final appointmentController = Get.put(AppointmentController());
    var items =[DropdownItem(label: 'Fever', value: User(symptom: 'Fever', id: 1)),DropdownItem(label: 'Headache', value: User(symptom: 'Headache', id: 2)),DropdownItem(label: 'Nausea', value: User(symptom: 'Nausea', id: 3)),
-     DropdownItem(label: 'Vomiting', value: User(symptom: 'Vomiting', id: 4)),DropdownItem(label: 'Chest pain', value: User(symptom: 'Chest pain', id: 5)),DropdownItem(label: 'Stomach Ache', value: User(symptom: 'Stomach Ache', id: 6))];
+     DropdownItem(label: 'Vomiting', value: User(symptom: 'Vomiting', id: 4)),DropdownItem(label: 'Chest pain', value: User(symptom: 'Chest pain', id: 5)),DropdownItem(label: 'Stomach Ache', value: User(symptom: 'Stomach Ache', id: 6)),DropdownItem(label: 'Lower Back Pain', value: User(symptom: 'Lower Back Pain', id: 7)),DropdownItem(label: 'Fatigue', value: User(symptom: 'Fatigue', id: 8))];
 
    var items2 =[DropdownItem(label: 'Smoking', value: User2(lifestyle: 'Smoking', id: 1)),DropdownItem(label: 'Do Exercise', value: User2(lifestyle: 'Do Exercise', id: 2)),DropdownItem(label: 'Drinking', value: User2(lifestyle: 'Drinking', id: 3)),
      DropdownItem(label: 'Non Vegetarian', value: User2(lifestyle: 'Non Vegetarian', id: 4)),];
@@ -150,7 +150,7 @@ class ConsultationForm extends StatelessWidget {
               dropdownDecoration: DropdownDecoration(
                 marginTop: 2,
                 maxHeight: 500,
-                backgroundColor: const Color(0xFFFEF7FF),
+                backgroundColor: darkMode?Colors.black: Color(0xFFFEF7FF),
                 header: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
@@ -158,13 +158,12 @@ class ConsultationForm extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: Theme.of(context)
                         .textTheme
-                        .labelLarge!
-                        .apply(color: Colors.black),
+                        .labelLarge
                   ),
                 ),
               ),
               dropdownItemDecoration: DropdownItemDecoration(
-                textColor: Colors.black,
+                textColor: darkMode?TColors.white:Colors.black,
                 selectedBackgroundColor: Colors.lightGreenAccent,
                 selectedTextColor: Colors.red,
                 selectedIcon:
@@ -227,7 +226,7 @@ class ConsultationForm extends StatelessWidget {
               dropdownDecoration: DropdownDecoration(
                 marginTop: 2,
                 maxHeight: 500,
-                backgroundColor: const Color(0xFFFEF7FF),
+                backgroundColor: darkMode?Colors.black: const Color(0xFFFEF7FF),
                 header: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
@@ -235,13 +234,12 @@ class ConsultationForm extends StatelessWidget {
                     textAlign: TextAlign.start,
                     style: Theme.of(context)
                         .textTheme
-                        .labelLarge!
-                        .apply(color: Colors.black),
+                        .labelLarge
                   ),
                 ),
               ),
               dropdownItemDecoration: DropdownItemDecoration(
-                textColor: Colors.black,
+                textColor: darkMode?TColors.white:Colors.black,
                 selectedBackgroundColor: Colors.lightGreenAccent,
                 selectedTextColor: Colors.red,
                 selectedIcon:

@@ -69,7 +69,10 @@ dependencies:
   scrollable_positioned_list:
   multi_dropdown:
   image_cropper:
-
+  google_maps_flutter:
+  geolocator:
+  geolocator_android: 4.6.1
+  flutter_google_places_sdk: ^0.4.0
 
 
 dev_dependencies:

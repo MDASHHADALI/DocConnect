@@ -67,7 +67,7 @@ class DoctorUpcomingAppointment extends StatelessWidget {
                                   subtitle:  Text( "Date - ${data['DateOfAppointment']}\nTime - ${data['TimeOfAppointment']}",style: Theme.of(context).textTheme.labelLarge!.apply(color: Colors.black87),),
                                   // trailing: const Icon(Iconsax.arrow_right),
                                   onTap: ()  {
-                                   Get.to(()=>LinkPage(patientId: data.id,));
+                                   Get.to(()=>LinkPage(patientId: data.id,userId: data['UserID'],));
                                   }
                               ),
                             ),

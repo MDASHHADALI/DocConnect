@@ -66,6 +66,7 @@ class AppointmentUserModel
       'DateOfAppointment':date,
       'TimeOfAppointment':time,
       'Status':status,
+      'Link':link,
     };
   }
   ///Factory method to create a UserModel from a Firebase document snapshot.

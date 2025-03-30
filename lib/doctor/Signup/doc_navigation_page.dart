@@ -14,6 +14,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:health_app/utils/constants/colors.dart';
 import 'package:health_app/utils/helpers/helper_functions.dart';
 
+import 'Doc_User_Controller.dart';
 import 'doc_setting_screen.dart';
 
 class DocNavigationMenu extends StatelessWidget {

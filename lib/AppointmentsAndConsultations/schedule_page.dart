@@ -10,6 +10,8 @@ import 'package:health_app/TSectionHeading.dart';
 import 'package:health_app/data/repositories/user/user_repository.dart';
 import 'package:health_app/homescreen.dart';
 import 'package:health_app/navigation_menu.dart';
+import 'package:health_app/notification/notification_model.dart';
+import 'package:health_app/notification/notification_repository.dart';
 import 'package:health_app/user_controller.dart';
 import 'package:health_app/utils/constants/sizes.dart';
 import 'package:intl/intl.dart';
@@ -241,6 +243,15 @@ class SchedulePage extends StatelessWidget {
                           );
                           final patientRepository = Get.put(AppointmentUserRepository());
                           await patientRepository.saveUserRecord(newPatient);
+                           final newNotification =NotificationModel(id: userController.user.value.fullName+appointmentController.date+(1000000+Random().nextInt(9000000)).toString(),
+                               title: 'New Appointment Booked',
+                               subtitle: 'Check your new patients for Video Consultation',
+                               picture: '',
+                               seen: "No",
+                               personId: appointmentController.doctorId);
+                           final notificationRepository = Get.put(NotificationRepository());
+                           await notificationRepository.saveUserRecord(newNotification);
+
 
                           TFullScreenLoader.stopLoading();
                           Get.off(

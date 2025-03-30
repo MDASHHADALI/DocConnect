@@ -1,11 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:health_app/common/widgets/custom_shapes/containers/primary_header_container.dart';
+import 'package:health_app/doctor/Signup/doc_navigation_page.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../appbar.dart';
+import '../../data/repositories/authentication/authentication_repository.dart';
+import '../../notification/notification.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/sizes.dart';
 import '../../utils/helpers/helper_functions.dart';
@@ -101,7 +105,7 @@ class DocHomeScreenAppbar extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    '2',
+                    '0',
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!
@@ -112,7 +116,9 @@ class DocHomeScreenAppbar extends StatelessWidget {
         ]),
         Stack(children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(()=>const Notifications(pf: "Doctor",));
+            },
             icon: const Icon(
               Iconsax.notification,
               color: TColors.white,
@@ -129,12 +135,28 @@ class DocHomeScreenAppbar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(100),
                 ),
                 child: Center(
-                  child: Text(
-                    '4',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .apply(color: TColors.white, fontSizeFactor: 0.8),
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection("Notifications").where('PersonId',isEqualTo: AuthenticationRepository.instance.authUser!.uid).where('Seen',isEqualTo: 'No').snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('');
+                        }
+
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return  const Text("");
+                        }
+                        return (snapshot.data!.docs.isEmpty)?
+                        Text("0" ,style: Theme.of(context).textTheme.labelLarge!.apply(color: TColors.white, fontSizeFactor: 0.8),
+                        )
+                            :
+                        Text(
+                          snapshot.data!.docs.length.toString(),
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelLarge!
+                              .apply(color: TColors.white, fontSizeFactor: 0.8),
+                        );
+                      }
                   ),
                 ),
               ))
@@ -175,12 +197,13 @@ class MyBox extends StatelessWidget {
       index=0,t=["My Online","My Offline","Buy","My Given","Track your ","Health"],
       t1=["Appointments","Appointments","Medicines","Prescriptions","Health","Assistant"],
       lbl=["Check Now","Check Now","45% off","Know More","View more","Try now"];
+  var controller= DocNavigationController.instance;
   MyBox(this.index, {super.key});
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        (index==0)? Get.to((){}):();
+        (index==0)? controller.selectedIndex.value=1:();
       },
 
       child: Ink(

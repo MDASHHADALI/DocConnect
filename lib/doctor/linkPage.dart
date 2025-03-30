@@ -1,11 +1,15 @@
 
 
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../notification/notification_model.dart';
+import '../notification/notification_repository.dart';
 import '../utils/constants/colors.dart';
 import '../utils/constants/image_strings.dart';
 import '../utils/constants/sizes.dart';
@@ -17,9 +21,10 @@ import '../utils/validators/validation.dart';
 
 
 class LinkPage extends StatelessWidget {
-  const LinkPage({super.key, required this.patientId});
+  const LinkPage({super.key, required this.patientId, required this.userId});
 
    final String patientId;
+   final String userId;
   @override
   Widget build(BuildContext context) {
     final darkMode = THelperFunctions.isDarkMode(context);
@@ -68,6 +73,14 @@ class LinkPage extends StatelessWidget {
                   }
                   // Update user's first and last name in Firebase Firestore
                   await FirebaseFirestore.instance.collection('Patients').doc(patientId).update(({'Link':link.text}));
+                  final newNotification =NotificationModel(id: (1000000+Random().nextInt(900000000)).toString(),
+                      title: 'Join the meeting',
+                      subtitle: 'Doctor is on the call . please join the meeting',
+                      picture: '',
+                      seen: "No",
+                      personId: userId);
+                  final notificationRepository = Get.put(NotificationRepository());
+                  await notificationRepository.saveUserRecord(newNotification);
 
                   // Remove Loader
                   TFullScreenLoader.stopLoading();

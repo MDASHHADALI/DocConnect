@@ -3,17 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:health_app/AppointmentsAndConsultations/MeetingScreen/meetingScreen.dart';
+import 'package:health_app/doctor/Signup/doc_navigation_page.dart';
 import 'package:health_app/doctor/linkPage.dart';
+import 'package:health_app/navigation_menu.dart';
+import 'package:health_app/utils/constants/image_strings.dart';
 import 'package:health_app/utils/helpers/helper_functions.dart';
+import 'package:health_app/utils/popup/full_screen_loader.dart';
 import 'package:health_app/utils/popup/loaders.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../circular_image.dart';
 import '../data/repositories/authentication/authentication_repository.dart';
+import '../utils/constants/colors.dart';
 
 
-class Notification extends StatelessWidget {
-  const Notification({super.key});
+class Notifications extends StatelessWidget {
+  const Notifications({super.key, required this.pf});
+  final String pf;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +28,10 @@ class Notification extends StatelessWidget {
     final darkMode = THelperFunctions.isDarkMode(context);
     return Scaffold(
         appBar: AppBar(
-          leading: const Center(child: Icon(Icons.video_camera_front_outlined,color: Colors.blue,size: 30,)),
-          title: const Text('Notifications',style: TextStyle(color: Colors.blueAccent),),
+          leading: IconButton(icon:Icon(Icons.navigate_before,color: darkMode?TColors.white:TColors.black ),onPressed: (){
+            Get.back();
+          }),
+          title: const Text('Notifications'),
           centerTitle: false,
         ),
         body: SingleChildScrollView(
@@ -55,21 +63,22 @@ class Notification extends StatelessWidget {
                           var data=snapshot.data!.docs[index];
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 2.0),
-                            child: Card(
-                              color: Colors.yellow,
-                              child: ListTile(
-                                  trailing: const Icon(Icons.video_call,color:Colors.red),
-                                  leading: const CircularImage(image: "assets/user/as.png",padding: 0,fit: BoxFit.fill,),
-                                  title: Text(
-                                    data['Title'],
-                                    style: Theme.of(context).textTheme.titleMedium!.apply(color: Colors.red),
-                                  ),
-                                  subtitle:  Text( "Date - ${data['DateOfAppointment']}\nTime - ${data['TimeOfAppointment']}",style: Theme.of(context).textTheme.labelLarge!.apply(color: Colors.black87),),
-                                  // trailing: const Icon(Iconsax.arrow_right),
-                                  onTap: ()  {
-                                    Get.to(()=>LinkPage(patientId: data.id,));
-                                  }
-                              ),
+                            child: ListTile(
+                              onTap: ()async{
+                                TFullScreenLoader.openLoadingDialog('Loading', TImages.docerAnimation);
+                                await FirebaseFirestore.instance.collection('Notifications').doc(data.id).update({'Seen':'Yes'});
+                                TFullScreenLoader.stopLoading();
+                                Get.back();
+                                (pf=='Doctor')?DocNavigationController.instance.selectedIndex.value=1:NavigationController.instance.selectedIndex.value=1;
+                              },
+                                leading: const CircularImage(image: "assets/user/as.png",padding: 0,fit: BoxFit.fill,),
+                                title: Text(
+                                  data['Title'],
+                                  style: Theme.of(context).textTheme.titleMedium!.apply(color: Colors.red),
+                                ),
+                                subtitle:  Text( data["Subtitle"],style: Theme.of(context).textTheme.labelLarge,),
+                                // trailing: const Icon(Iconsax.arrow_right),
+
                             ),
                           );
 
