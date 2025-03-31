@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../notification/notification_model.dart';
 import '../notification/notification_repository.dart';
@@ -35,6 +36,15 @@ class LinkPage extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(icon:Icon(Icons.navigate_before,color: darkMode?TColors.white:TColors.black ),onPressed: ()=>Get.back(),),
         title: Text('Enter Meeting Link',style: Theme.of(context).textTheme.headlineSmall,),
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        final Uri url = Uri.parse('https://meet.google.com/landing');
+        if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+        }},
+        tooltip: 'Start New Meeting',
+        backgroundColor: Colors.blue.shade100,
+        child: const Icon(Icons.video_call_outlined,size:32,color: Colors.black,),
       ),
       body:  Padding(padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: Column(
