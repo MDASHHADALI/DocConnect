@@ -65,7 +65,10 @@ class MainConsultationScreen extends StatelessWidget {
                               // trailing: const Icon(Iconsax.arrow_right),
                               onTap: () async {
                                 if(data['Link']!="No"){
-                                final Uri url = Uri.parse(data['Link']);
+                                  String st= data['Link'];
+                                  if(st.length<8||st.substring(0,8)!="https://")
+                                   { st="https://$st"; }
+                                final Uri url = Uri.parse(st);
                                 if (!await launchUrl(url)) {
                                 throw Exception('Could not launch $url');
                                 }
