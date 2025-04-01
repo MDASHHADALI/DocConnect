@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:health_app/AppointmentsAndConsultations/MeetingScreen/meetingScreen.dart';
 import 'package:health_app/doctor/Signup/doc_navigation_page.dart';
 import 'package:health_app/doctor/linkPage.dart';
 import 'package:health_app/navigation_menu.dart';

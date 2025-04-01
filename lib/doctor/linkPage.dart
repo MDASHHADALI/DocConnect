@@ -85,7 +85,7 @@ class LinkPage extends StatelessWidget {
                   await FirebaseFirestore.instance.collection('Patients').doc(patientId).update(({'Link':link.text}));
                   final newNotification =NotificationModel(id: (1000000+Random().nextInt(900000000)).toString(),
                       title: 'Join the meeting',
-                      subtitle: 'Doctor is on the call . please join the meeting',
+                      subtitle: 'Doctor is on the call . Please join the meeting',
                       picture: '',
                       seen: "No",
                       personId: userId);
