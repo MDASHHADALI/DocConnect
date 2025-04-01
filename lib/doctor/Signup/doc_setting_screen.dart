@@ -14,6 +14,7 @@ import 'package:health_app/utils/constants/sizes.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'Doc_User_Controller.dart';
+import 'doc_navigation_page.dart';
 
 class DocSettingScreen extends StatelessWidget {
   const DocSettingScreen({super.key});
@@ -21,6 +22,7 @@ class DocSettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = DocUserController.instance;
+    final navController= DocNavigationController.instance;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -54,7 +56,7 @@ class DocSettingScreen extends StatelessWidget {
                     height: TSizes.spaceBtwItems,
                   ),
                   TSettingMenuTile(icon: Iconsax.safe_home, title: 'My Address', subtitle: 'Set your Delivery Address',onTap: (){},),
-                  TSettingMenuTile(icon: Iconsax.calendar, title: 'Upcoming and Past Appointments', subtitle: 'View details of your appointments',onTap: (){},),
+                  TSettingMenuTile(icon: Iconsax.calendar, title: 'Upcoming and Past Appointments', subtitle: 'View details of your appointments',onTap: (){navController.selectedIndex.value=2;},),
                   TSettingMenuTile(icon: Iconsax.book, title: 'Medical Conditions & Allergies', subtitle: 'Comprehensive overview of  diagnosed health conditions and known allergies.',onTap: (){},),
                   TSettingMenuTile(icon: Iconsax.omega_circle, title: 'Ongoing Medications ', subtitle: 'Track your current medications, dosage schedules, and prescription details.',onTap: (){},),
                   TSettingMenuTile(icon: Iconsax.screenmirroring4, title: 'Vaccination History', subtitle: 'Track your immunization records,',onTap: (){},),
