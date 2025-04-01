@@ -14,6 +14,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:health_app/utils/constants/colors.dart';
 import 'package:health_app/utils/helpers/helper_functions.dart';
 
+import '../upcomingandpastAppointment.dart';
 import 'Doc_User_Controller.dart';
 import 'doc_setting_screen.dart';
 
@@ -36,6 +37,7 @@ class DocNavigationMenu extends StatelessWidget {
           destinations: const [
             NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
             NavigationDestination(icon: Icon(Iconsax.video), label: 'Consultations'),
+            NavigationDestination(icon: Icon(Iconsax.calendar), label: 'Appointments'),
             NavigationDestination(icon: Icon(Iconsax.user), label: 'Profile'),
           ],
 
@@ -48,6 +50,6 @@ class DocNavigationMenu extends StatelessWidget {
 class DocNavigationController extends GetxController{
   static DocNavigationController get instance => Get.find();
   final Rx<int> selectedIndex=0.obs;
-  final screens=[const DoctorHomepage(),const DoctorUpcomingAppointment(),const  DocSettingScreen()];
+  final screens=[const DoctorHomepage(),const DoctorUpcomingAppointment(),const UpcomingandPastAppointments(),const  DocSettingScreen()];
 
 }

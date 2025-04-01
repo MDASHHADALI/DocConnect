@@ -17,8 +17,8 @@ class MainConsultationScreen extends StatelessWidget {
     final darkMode = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
-        leading:  Center(child: Icon(Icons.video_camera_front_outlined,color: darkMode?TColors.grey:TColors.darkerGrey,size: 30,)),
-        title:  const Text('Video Consultations'),
+        leading:  Center(child: Icon(Icons.video_camera_front_outlined,color: darkMode?Colors.lightGreenAccent:Colors.green.shade600,size: 30,)),
+        title:   Text('Video Consultations',style: TextStyle(color: darkMode?Colors.white:Colors.black87),),
         centerTitle: false,
       ),
       body: SingleChildScrollView(

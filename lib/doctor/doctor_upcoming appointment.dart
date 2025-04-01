@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../circular_image.dart';
 import '../data/repositories/authentication/authentication_repository.dart';
+import '../utils/constants/colors.dart';
 
 
 class DoctorUpcomingAppointment extends StatelessWidget {
@@ -21,8 +22,8 @@ class DoctorUpcomingAppointment extends StatelessWidget {
     final darkMode = THelperFunctions.isDarkMode(context);
     return Scaffold(
         appBar: AppBar(
-          leading: const Center(child: Icon(Icons.video_camera_front_outlined,color: Colors.blue,size: 30,)),
-          title: const Text('Video Consultation',style: TextStyle(color: Colors.blueAccent),),
+          leading: Center(child: Icon(Icons.video_camera_front_outlined,color: darkMode?Colors.lightGreenAccent:Colors.green.shade600,size: 30,)),
+          title: Text('Video Consultations',style: TextStyle(color: darkMode?Colors.white:Colors.black87),),
           centerTitle: false,
         ),
         body: SingleChildScrollView(
