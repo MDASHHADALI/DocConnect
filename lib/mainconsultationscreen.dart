@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:health_app/AppointmentsAndConsultations/MeetingScreen/meetingScreen.dart';
+import 'package:health_app/utils/constants/colors.dart';
 import 'package:health_app/utils/helpers/helper_functions.dart';
 import 'package:health_app/utils/popup/loaders.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,8 +20,8 @@ class MainConsultationScreen extends StatelessWidget {
     final darkMode = THelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
-        leading: const Center(child: Icon(Icons.video_camera_front_outlined,color: Colors.blue,size: 30,)),
-        title: const Text('Video Consultations',style: TextStyle(color: Colors.blueAccent),),
+        leading:  Center(child: Icon(Icons.video_camera_front_outlined,color: darkMode?TColors.grey:TColors.darkerGrey,size: 30,)),
+        title:  const Text('Video Consultations'),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
