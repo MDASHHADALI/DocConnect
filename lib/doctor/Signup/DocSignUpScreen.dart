@@ -33,10 +33,6 @@ class DocSignupScreen extends StatelessWidget {
                 height: TSizes.spaceBtwSections,
               ),
               const DocSignUpForm(),
-              const SizedBox(height: TSizes.spaceBtwSections,),
-              FormDivider(formDividerText: TTexts.orSignUpWith.capitalize!),
-              const SizedBox(height: TSizes.spaceBtwSections,),
-              const SocialButtons(),
 
             ],
           ),
