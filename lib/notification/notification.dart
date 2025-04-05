@@ -64,7 +64,7 @@ class Notifications extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 2.0),
                             child: ListTile(
                               onTap: ()async{
-                                TFullScreenLoader.openLoadingDialog('Loading', TImages.docerAnimation);
+                                TFullScreenLoader.openLoadingDialog('Loading....', TImages.docerAnimation);
                                 await FirebaseFirestore.instance.collection('Notifications').doc(data.id).update({'Seen':'Yes'});
                                 TFullScreenLoader.stopLoading();
                                 Get.back();
