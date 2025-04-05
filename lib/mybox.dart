@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:health_app/chatbot.dart';
 
 import 'package:health_app/utils/constants/colors.dart';
 
@@ -19,7 +20,7 @@ class MyBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        (index==0)? Get.to(()=>const OnlineConsultation()):();
+        (index==0)? Get.to(()=>const OnlineConsultation()):(index==5)?Get.to(()=> ChatScreen()):();
       },
 
       child: Ink(
